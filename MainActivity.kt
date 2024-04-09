@@ -1,5 +1,6 @@
 package com.naomi.jetpackcompose
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -16,6 +17,8 @@ import androidx.compose.foundation.layout.padding
 
 import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 
@@ -55,27 +58,38 @@ class MainActivity : ComponentActivity() {
                                 .padding(20.dp)
 
                         ){
+                            Column {
+
+
                             ImageCard(painter = painterResource(id = R.drawable.card), contentDescription = "mycard", title = "This is a nature picture")
-                        }
+
                         Spacer(modifier = Modifier.height(20.dp))
-                        Spacer(modifier = Modifier.height(20.dp))
+                            Button(onClick = {
+                                val intent = Intent(this@MainActivity,ScrollActivity::class.java)
+                                startActivity(intent)
+                            },
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(10.dp),
+                                colors = ButtonDefaults.buttonColors(Color.Magenta))
+                            {
 
-                        Box(
-                            modifier = Modifier
-                                .fillMaxWidth(0.5f)
-                                .padding(20.dp)
+                                Text(text = "SCROLL")
 
-                        ){
-                            ImageCard2(painter = painterResource(id = R.drawable.nature), contentDescription = "mycard2", title = "This is my nature picture")
-                        }
+                            }}
 
-                    }
+
+
+
+
+
+
 
                 }
             }
         }
     }
-}
+}}
 
 @Composable
 fun ImageCard(painter: Painter, contentDescription:String,title:String){
@@ -105,34 +119,8 @@ fun ImageCard(painter: Painter, contentDescription:String,title:String){
 
     }
 }
-@Composable
-fun ImageCard2(painter: Painter, contentDescription:String,title:String){
-    Card(
-        modifier = Modifier.wrapContentWidth(),
-        shape = RoundedCornerShape(15.dp),
-        elevation = CardDefaults.cardElevation(20.dp)
-    ){
-        Box(
-            modifier = Modifier.height(200.dp)
-        )
-        {
-            Image(painter = painter, contentDescription = contentDescription, contentScale = ContentScale.Crop)
-            Box (
-                modifier = Modifier
-                    .matchParentSize()
-                    .padding(15.dp),
-                contentAlignment = Alignment.BottomStart
-            ) {
-                Text(text = title,
-                    color = Color.Black,
-                    fontSize = 15.sp
-                )
-            }
-        }
 
 
-    }
-}
 
 
 @Preview(showSystemUi = true, showBackground = true)
@@ -140,10 +128,5 @@ fun ImageCard2(painter: Painter, contentDescription:String,title:String){
 fun ImageCardPreview(){
     ImageCard(painter = painterResource(id = R.drawable.card), contentDescription = "mycard", title = "This is a nature picture" )
 
-}
-@Preview(showSystemUi = true, showBackground = true)
-@Composable
-fun ImageCardPreview2(){
-    ImageCard(painter = painterResource(id = R.drawable.nature), contentDescription = "mycard2", title = "This is my nature picture" )
+}}
 
-}
